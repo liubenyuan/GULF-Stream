@@ -1,8 +1,10 @@
-set project_dir [file dirname [file dirname [file normalize [info script]]]]
+set root_dir [file normalize [file join [file dirname [file normalize [info script]]] "../../"]]
+set project_dir $root_dir/ip_repo/assembled_ips
 set project_name "GULF_Stream"
-source ${project_dir}/scripts/util.tcl
+source ${root_dir}/src/scripts/env.tcl
 
-create_project $project_name $project_dir/$project_name -part xczu19eg-ffvc1760-2-i
+set target [get_env_param TARGET_FPGA "xczu19eg-ffvc1760-2-i"]
+create_project $project_name $project_dir/$project_name -part $target
 create_bd_design $project_name
 
 set_property ip_repo_paths [list "${project_dir}/../hls_ips" "$project_dir"] [current_project]

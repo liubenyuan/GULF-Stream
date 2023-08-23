@@ -1,9 +1,11 @@
-set project_dir [file dirname [file dirname [file normalize [info script]]]]
+set root_dir [file normalize [file join [file dirname [file normalize [info script]]] "../../"]]
+set project_dir $root_dir/ip_repo/assembled_ips
 set project_name "arp_server_100g"
-source ${project_dir}/scripts/util.tcl
+source ${root_dir}/src/scripts/env.tcl
 
-create_project $project_name $project_dir/$project_name -part xczu19eg-ffvc1760-2-i
-#set_property board_part fidus.com:sidewinder100:part0:1.0 [current_project]
+set target [get_env_param TARGET_FPGA "xczu19eg-ffvc1760-2-i"]
+create_project $project_name $project_dir/$project_name -part $target
+# set_property board_part fidus.com:sidewinder100:part0:1.0 [current_project]
 create_bd_design $project_name
 
 set_property ip_repo_paths "${project_dir}/../hls_ips" [current_project]
