@@ -1,5 +1,5 @@
 GULF_Stream_IPCore:
-	$(MAKE) -C ip_repo/hls_ips
+	$(MAKE) -C src
 	$(MAKE) -C ip_repo/assembled_ips
 
 loopback_example: GULF_Stream_IPCore
