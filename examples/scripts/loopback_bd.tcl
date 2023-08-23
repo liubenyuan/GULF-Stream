@@ -67,14 +67,25 @@ proc create_hier_cell_eth_100g { parentCell nameHier } {
   create_bd_pin -dir O -type clk gt_txusrclk2
 
   # Create instance: cmac_usplus_0, and set properties
+  # change GT ref clock from 322.265625 to 156.25
   set cmac_usplus_0 [ addip cmac_usplus cmac_usplus_0 ]
   set_property -dict [list \
     CONFIG.CMAC_CAUI4_MODE {1} \
     CONFIG.CMAC_CORE_SELECT {CMACE4_X0Y1} \
     CONFIG.ENABLE_AXI_INTERFACE {0} \
     CONFIG.GT_DRP_CLK {200.0} \
-    CONFIG.GT_GROUP_SELECT {X0Y12~X0Y15} \
-    CONFIG.GT_REF_CLK_FREQ {322.265625} \
+    CONFIG.GT_GROUP_SELECT {X0Y16~X0Y19} \
+    CONFIG.GT_REF_CLK_FREQ {156.25} \
+    CONFIG.LANE10_GT_LOC {NA} \
+    CONFIG.LANE1_GT_LOC {X0Y16} \
+    CONFIG.LANE2_GT_LOC {X0Y17} \
+    CONFIG.LANE3_GT_LOC {X0Y18} \
+    CONFIG.LANE4_GT_LOC {X0Y19} \
+    CONFIG.LANE5_GT_LOC {NA} \
+    CONFIG.LANE6_GT_LOC {NA} \
+    CONFIG.LANE7_GT_LOC {NA} \
+    CONFIG.LANE8_GT_LOC {NA} \
+    CONFIG.LANE9_GT_LOC {NA} \
     CONFIG.NUM_LANES {4x25} \
     CONFIG.RX_CHECK_PREAMBLE {1} \
     CONFIG.RX_CHECK_SFD {1} \
@@ -186,7 +197,7 @@ proc create_root_design { parentCell } {
   # Create interface ports
   set gt_ref [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 gt_ref ]
   set_property -dict [ list \
-   CONFIG.FREQ_HZ {322265625} \
+   CONFIG.FREQ_HZ {156250000} \
    ] $gt_ref
 
   set init [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 init ]

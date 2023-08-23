@@ -1,8 +1,10 @@
 set root_dir [file normalize [file join [file dirname [file normalize [info script]]] "../../"]]
+source ${root_dir}/src/scripts/env.tcl
 set project_dir $root_dir/examples
 set project_name "loopback_server"
 
-create_project -force $project_name $project_dir/$project_name -part xczu19eg-ffvc1760-2-i
+set target [get_env_param TARGET_FPGA "xczu19eg-ffvc1760-2-i"]
+create_project -force $project_name $project_dir/$project_name -part $target
 
 set_property ip_repo_paths "${project_dir}/../ip_repo" [current_project]
 update_ip_catalog -rebuild
